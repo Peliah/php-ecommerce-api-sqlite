@@ -1,4 +1,4 @@
-# eCommerce PHP Project
+# E-Commerce PHP API with SQLiteProject
 
 This is a simple eCommerce application built using PHP and SQLite. The project follows RESTful conventions and exposes endpoints for managing users, products, orders, payments, and carts.
 
