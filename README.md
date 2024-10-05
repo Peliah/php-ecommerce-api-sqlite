@@ -33,20 +33,20 @@ php -S localhost:8000
 
 ## Postman Collection
 
-![Alt text](postman_tests/list_products.png)
 ### List Products
+![Alt text](postman_tests/list_products.png)
 
-![Alt text](postman_tests/add_product.png)
 ### Add Product
+![Alt text](postman_tests/add_product.png)
 
-![Alt text](postman_tests/list_users.png)
 ### List Users
+![Alt text](postman_tests/list_users.png)
 
-![Alt text](postman_tests/add_user.png)
 ### Add User
+![Alt text](postman_tests/add_user.png)
 
-![Alt text](postman_tests/get_order.png)
 ### List Orders
+![Alt text](postman_tests/get_order.png)
 
 The Postman collection for testing the API routes is available in the `/postman_tests/` directory.
 
