@@ -35,16 +35,31 @@ class Order {
         }
     }
 
+    // public function getById($order_id) {
+    //     try {
+    //         $stmt = $this->db->prepare('SELECT * FROM orders WHERE id = ?');
+    //         $stmt->bindParam(1, $order_id);
+    //         $stmt->execute();
+    //         return $stmt->fetchAll(SQLITE3_ASSOC);
+    //     } catch (Exception $e) {
+    //         return false;
+    //     }
+    // }
+
     public function getById($order_id) {
-        try {
-            $stmt = $this->db->prepare('SELECT * FROM orders WHERE id = ?');
-            $stmt->bindParam(1, $order_id);
-            $stmt->execute();
-            return $stmt->fetchAll(SQLITE3_ASSOC);
-        } catch (Exception $e) {
-            return false;
+        $stmt = $this->db->prepare('SELECT * FROM orders WHERE id = ?');
+        $stmt->bindParam(1, $order_id);
+        $result = $stmt->execute(); // Execute the statement
+    
+        // Fetch the order details
+        $order = $result->fetchArray(SQLITE3_ASSOC);
+        if ($order) {
+            return $order;
+        } else {
+            throw new Exception('Order not found.');
         }
     }
+    
 
     public function delete($id) {
         try {
