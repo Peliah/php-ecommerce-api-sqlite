@@ -1,5 +1,5 @@
 <?php
-require_once __DIR__ . '/../../models/Payment.php';
+require_once __DIR__ . '/../../models/CartItems.php';
 
 header('Content-Type: application/json');
 
@@ -7,23 +7,22 @@ try {
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $data = json_decode(file_get_contents('php://input'), true);
 
-        if (!isset($data['order_id'], $data['amount'], $data['payment_method'], $data['payment_status'])) {
+        if (!isset($data['cart_id'], $data['product_id'], $data['quantity'])) {
             echo json_encode(['error' => 'Missing required fields']);
             http_response_code(400);
             exit();
         }
 
-        $order_id = $data['order_id'];
-        $amount = $data['amount'];
-        $payment_method = $data['payment_method'];
-        $payment_status = $data['payment_status'];
+        $cart_id = $data['cart_id'];
+        $product_id = $data['product_id'];
+        $quantity = $data['quantity'];
 
-        $paymentModel = new Payment();
-        if ($paymentModel->create($order_id, $amount, $payment_method, $payment_status)) {
-            echo json_encode(['success' => 'Payment created successfully']);
+        $cartItemsModel = new CartItems();
+        if ($cartItemsModel->add($cart_id, $product_id, $quantity)) {
+            echo json_encode(['success' => 'Product added to cart']);
             http_response_code(201);
         } else {
-            echo json_encode(['error' => 'Failed to create payment']);
+            echo json_encode(['error' => 'Failed to add product to cart']);
             http_response_code(500);
         }
     } else {

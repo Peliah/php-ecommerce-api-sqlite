@@ -4,16 +4,18 @@ require_once __DIR__ . '/../../models/User.php';
 header('Content-Type: application/json');
 
 try {
-    if ($_SERVER['REQUEST_METHOD'] === 'DELETE' && isset($_GET['id'])) {
+    if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['id'])) {
         $id = intval($_GET['id']);
         
         $userModel = new User();
-        if ($userModel->delete($id)) {
-            echo json_encode(['success' => 'User deleted successfully']);
+        $user = $userModel->getById($id);
+
+        if ($user) {
+            echo json_encode($user);
             http_response_code(200);
         } else {
-            echo json_encode(['error' => 'User deletion failed']);
-            http_response_code(500);
+            echo json_encode(['error' => 'User not found']);
+            http_response_code(404);
         }
     } else {
         echo json_encode(['error' => 'Invalid request method or missing user ID']);

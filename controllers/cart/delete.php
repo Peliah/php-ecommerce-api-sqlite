@@ -1,23 +1,23 @@
 <?php
-require_once __DIR__ . '/../../models/CartItems.php';
+require_once __DIR__ . '/../../models/Cart.php';
 
 header('Content-Type: application/json');
 
 try {
     if ($_SERVER['REQUEST_METHOD'] === 'DELETE') {
         if (!isset($_GET['id'])) {
-            echo json_encode(['error' => 'Missing cart item ID']);
+            echo json_encode(['error' => 'Missing cart ID']);
             http_response_code(400);
             exit();
         }
 
-        $item_id = $_GET['id'];
-        $cartItemsModel = new CartItems();
+        $cart_id = $_GET['id'];
+        $cartModel = new Cart();
 
-        if ($cartItemsModel->delete($item_id)) {
-            echo json_encode(['success' => 'Cart item deleted successfully']);
+        if ($cartModel->delete($cart_id)) {
+            echo json_encode(['success' => 'Cart deleted successfully']);
         } else {
-            echo json_encode(['error' => 'Failed to delete cart item']);
+            echo json_encode(['error' => 'Failed to delete cart']);
             http_response_code(500);
         }
     } else {
